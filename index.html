@@ -19,7 +19,7 @@
       --font-body: 'Rajdhani', Arial, sans-serif;
     }
 
-    @import url('https://fonts.fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Rajdhani:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Rajdhani:wght@400;600&display=swap');
 
     * {
       margin: 0;
@@ -96,15 +96,27 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
       position: relative;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Adicionado box-shadow */
+      -webkit-tap-highlight-color: transparent; /* Remove o destaque azul padrão do Android no toque */
     }
 
     .tab-button:hover {
       color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* Estilo para o estado ativo do toque/clique */
+    .tab-button:active {
+      transform: scale(0.98); /* Leve encolhimento ao tocar/clicar */
+      color: var(--primary); /* Mantém a cor principal ao tocar */
+      box-shadow: 0 0 10px rgba(139, 0, 0, 0.5); /* Sombra suave para feedback */
     }
 
     .tab-button.active {
       color: var(--primary);
+      text-shadow: 0 0 8px rgba(139, 0, 0, 0.6); /* Sombra mais intensa para o estado ativo */
+      transform: translateY(-2px); /* Mantém a elevação para indicar seleção */
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4); /* Sombra mais pronunciada para o ativo */
     }
 
     .tab-button.active::after {
@@ -117,6 +129,7 @@
       height: 3px;
       background: var(--primary);
       border-radius: 2px;
+      box-shadow: 0 0 8px var(--primary); /* Brilho na borda ativa */
     }
 
     /* Conteúdo das Abas */
@@ -181,16 +194,22 @@
     .checkbox-label {
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Para alinhar o preço à direita */
+      justify-content: space-between;
       padding: 8px 12px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 6px;
       cursor: pointer;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .checkbox-label:hover {
       background: rgba(139, 0, 0, 0.2);
+    }
+
+    .checkbox-label:active { /* Feedback de toque para labels */
+      transform: scale(0.99);
+      background: rgba(139, 0, 0, 0.3);
     }
 
     .checkbox-label input {
@@ -199,17 +218,17 @@
       width: 18px;
       height: 18px;
       cursor: pointer;
-      flex-shrink: 0; /* Impede que o input encolha */
+      flex-shrink: 0;
     }
 
     .checkbox-label span.price {
       font-weight: bold;
-      color: var(--accent); /* Amarelo ouro para os preços */
-      margin-left: 10px; /* Espaçamento entre o texto e o preço */
-      flex-shrink: 0; /* Impede que o preço encolha */
+      color: var(--accent);
+      margin-left: 10px;
+      flex-shrink: 0;
     }
     .checkbox-label .item-name {
-        flex-grow: 1; /* Permite que o nome do item ocupe o espaço restante */
+        flex-grow: 1;
     }
 
 
@@ -234,6 +253,12 @@
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5);
       position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cart-button:active { /* Feedback de toque para o botão do carrinho */
+      transform: scale(0.95);
+      box-shadow: 0 2px 10px rgba(139, 0, 0, 0.7);
     }
 
     .cart-badge {
@@ -305,9 +330,15 @@
       font-family: var(--font-body);
       text-transform: uppercase;
       letter-spacing: 1px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .checkout-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .checkout-btn:active { /* Feedback de toque para o botão de checkout */
+      transform: scale(0.99);
       background: var(--primary-dark);
     }
 
@@ -358,6 +389,12 @@
       color: var(--text-muted);
       font-size: 1.5rem;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .close-modal:active {
+      transform: scale(0.9);
+      color: var(--primary);
     }
 
     .modal-title {
@@ -439,9 +476,15 @@
       font-family: var(--font-body);
       text-transform: uppercase;
       letter-spacing: 1px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .submit-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
       background: var(--primary-dark);
     }
 
@@ -515,8 +558,13 @@
       font-family: var(--font-body);
       text-transform: uppercase;
       letter-spacing: 1px;
+      -webkit-tap-highlight-color: transparent;
     }
     .success-button:hover {
+      background: var(--primary-dark);
+    }
+    .success-button:active {
+      transform: scale(0.99);
       background: var(--primary-dark);
     }
 
@@ -540,12 +588,12 @@
       }
 
       .checkbox-label {
-        flex-direction: row; /* Volta para linha em telas pequenas */
+        flex-direction: row;
         align-items: center;
         justify-content: space-between;
       }
       .checkbox-label .item-name {
-        margin-right: 10px; /* Adiciona espaçamento entre o nome e o preço */
+        margin-right: 10px;
       }
 
       .tab-navigation {
@@ -555,6 +603,10 @@
 
       .tab-button {
         font-size: 1.2rem;
+        padding: 0.8rem 1rem; /* Aumenta o padding para facilitar o toque */
+      }
+      .tab-button.active {
+        transform: none; /* Remove o translateY no mobile para evitar layouts estranhos */
       }
     }
 
@@ -800,7 +852,8 @@
             <label class="checkbox-label">
               <input type="checkbox" id="selecionar-quantias-gag" data-game="grow-a-garden" onchange="toggleMoneyOptions(this)"> 
               <span class="item-name">Selecionar Quantias</span>
-              </label>
+              <span class="price" style="color: var(--text-muted); font-size: 0.9em;">(Preço por item)</span>
+            </label>
           </div>
 
           <div id="money-options" class="checkbox-group" style="margin-top: 15px; display: none;">
@@ -833,7 +886,8 @@
             <label class="checkbox-label">
               <input type="checkbox" id="selecionar-pets-gag" data-game="grow-a-garden" onchange="togglePetOptions(this)"> 
               <span class="item-name">Selecionar Pets</span>
-              </label>
+              <span class="price" style="color: var(--text-muted); font-size: 0.9em;">(Preço por item)</span>
+            </label>
           </div>
 
           <div id="pets-options" class="checkbox-group" style="margin-top: 15px; display: none;">
@@ -863,6 +917,22 @@
               <span class="price">R$ 40,00</span>
             </label>
           </div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <h2 class="category-title">
+          <svg viewBox="0 0 24 24">
+            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V9H11V7M11,11H13V17H11V11Z" />
+          </svg>
+          Pacotes
+        </h2>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="redfox-trilhao-gag" data-price="20" data-game="grow-a-garden" onchange="updateCart()"> 
+            <span class="item-name">Redfox + 1 Trilhão (Oferta Especial!)</span>
+            <span class="price">R$ 20,00 <span style="font-size: 0.8em; color: var(--success);">(9% OFF)</span></span>
+          </label>
         </div>
       </div>
     </div>
@@ -961,7 +1031,9 @@
         const cartPanel = document.getElementById('cart-panel');
         const cartButton = document.getElementById('cart-button');
         const isClickInsideCart = cartPanel.contains(event.target) || cartButton.contains(event.target);
-        if (cartOpen && !isClickInsideCart) {
+        const isModalOpen = document.getElementById('checkout-modal').classList.contains('active') || document.getElementById('success-modal').classList.contains('active');
+
+        if (cartOpen && !isClickInsideCart && !isModalOpen) {
           toggleCart();
         }
       });
@@ -988,8 +1060,8 @@
       // Oculta opções de seleção ao trocar de aba
       document.getElementById('classes-options').style.display = 'none';
       document.getElementById('trens-options').style.display = 'none';
-      document.getElementById('money-options').style.display = 'none'; // Para Grow a Garden
-      document.getElementById('pets-options').style.display = 'none';   // Para Grow a Garden
+      document.getElementById('money-options').style.display = 'none'; 
+      document.getElementById('pets-options').style.display = 'none'; 
       
       updateCart(); // Limpa e atualiza o carrinho
     }
@@ -1045,8 +1117,21 @@
           } else if (game === 'grow-a-garden') {
               // Em Grow a Garden, adicionamos itens individuais de dinheiro e pets
               if (checkbox.classList.contains('money-item') || checkbox.classList.contains('pet-item')) {
+                  // Se a oferta de pacote Redfox + 1 Trilhão estiver marcada, não adicione itens individuais de dinheiro ou pet.
+                  if (!document.getElementById('redfox-trilhao-gag').checked) {
+                    cart.push({ name: `[GROW A GARDEN] ${itemName}`, price: price.toFixed(2), game: game });
+                    total += price;
+                  }
+              } else if (checkbox.id === 'redfox-trilhao-gag') {
                   cart.push({ name: `[GROW A GARDEN] ${itemName}`, price: price.toFixed(2), game: game });
                   total += price;
+                  // Se a oferta Redfox + 1 Trilhão for selecionada, desmarca outras opções de Grow a Garden
+                  document.getElementById('selecionar-quantias-gag').checked = false;
+                  document.getElementById('selecionar-pets-gag').checked = false;
+                  document.getElementById('money-options').style.display = 'none';
+                  document.querySelectorAll('.money-item').forEach(el => el.checked = false);
+                  document.getElementById('pets-options').style.display = 'none';
+                  document.querySelectorAll('.pet-item').forEach(el => el.checked = false);
               }
           }
         }
@@ -1090,7 +1175,7 @@
       
       if (show) {
         document.getElementById('todas-classes').checked = false;
-        document.getElementById('tudo-do-jogo').checked = false; // Desmarcar "tudo do jogo"
+        document.getElementById('tudo-do-jogo').checked = false;
       } else {
         document.querySelectorAll('.classe').forEach(el => el.checked = false);
       }
@@ -1104,7 +1189,7 @@
       
       if (show) {
         document.getElementById('todos-trens').checked = false;
-        document.getElementById('tudo-do-jogo').checked = false; // Desmarcar "tudo do jogo"
+        document.getElementById('tudo-do-jogo').checked = false;
       } else {
         document.querySelectorAll('.trem').forEach(el => el.checked = false);
       }
@@ -1116,7 +1201,9 @@
       const show = checkbox.checked;
       document.getElementById('money-options').style.display = show ? 'grid' : 'none';
       
-      if (!show) {
+      if (show) {
+          document.getElementById('redfox-trilhao-gag').checked = false; // Desmarca a oferta de pacote
+      } else {
         document.querySelectorAll('.money-item').forEach(el => el.checked = false);
       }
       updateCart();
@@ -1127,7 +1214,9 @@
       const show = checkbox.checked;
       document.getElementById('pets-options').style.display = show ? 'grid' : 'none';
       
-      if (!show) {
+      if (show) {
+          document.getElementById('redfox-trilhao-gag').checked = false; // Desmarca a oferta de pacote
+      } else {
         document.querySelectorAll('.pet-item').forEach(el => el.checked = false);
       }
       updateCart();
